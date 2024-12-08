@@ -1,0 +1,16 @@
+{
+    "basic_context": {
+        "compiler_version": "0.8.28",
+        "main_contract": "BlastRoulette",
+        "description": "SPDX-License-Identifier: MIT  Blast functions"
+    },
+    "vulnerabilities": [
+        {
+            "type": "Logical Errors",
+            "severity": "Critical",
+            "location": "Global",
+            "description": "SafeMath library is not imported. This can lead to overflow issues in arithmetic operations.",
+            "solution": "Use SafeMath for all arithmetic operations."
+        }
+    ]
+}
