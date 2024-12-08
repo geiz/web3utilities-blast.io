@@ -22,6 +22,18 @@ const updateMultipliersPosition = async (position, value) => {
   }
 }
 
+const authorizeContract = async (add, bool) => {
+  try {
+    const tx = nftContract.methods.authorizeContract(add, bool);
+    const gas = await tx.estimateGas({ from: web3.eth.accounts.wallet[0].address });
+    const gasPrice = await web3.eth.getGasPrice();
+    const txReceipt = await tx.send({ from: web3.eth.accounts.wallet[0].address , gas, gasPrice });
+    console.log('Transaction, hash:', txReceipt.transactionHash);
+  } catch (err) {
+    throw err;
+  }
+}
+
 const updateWeightsPosition = async (position, value) => {
   try {
     const tx = nftContract.methods.updateWeightsPosition(position, value);
@@ -46,9 +58,33 @@ const updateRate = async (rate) => {
   }
 }
 
-const withdrawBalanceWETH = async () => {
+const withdrawBalanceWETH = async (amount) => {
   try {
-    const tx = nftContract.methods.withdrawBalance("0x4300000000000000000000000000000000000004", 100000000000000);
+    const tx = nftContract.methods.withdrawBalance("0x4300000000000000000000000000000000000004", amount);
+    const gas = await tx.estimateGas({ from: web3.eth.accounts.wallet[0].address });
+    const gasPrice = await web3.eth.getGasPrice();
+    const txReceipt = await tx.send({ from: web3.eth.accounts.wallet[0].address , gas, gasPrice });
+    console.log('Transaction, hash:', txReceipt.transactionHash);
+  } catch (err) {
+    throw err;
+  }
+}
+
+const claimMaxGas = async () => {
+  try {
+    const tx = nftContract.methods.claimMaxGas("0x28920CC7abcaFB8798246D6a408bc8384b9A9c1f");
+    const gas = await tx.estimateGas({ from: web3.eth.accounts.wallet[0].address });
+    const gasPrice = await web3.eth.getGasPrice();
+    const txReceipt = await tx.send({ from: web3.eth.accounts.wallet[0].address , gas, gasPrice });
+    console.log('Transaction, hash:', txReceipt.transactionHash);
+  } catch (err) {
+    throw err;
+  }
+}
+
+const claimAllYield = async () => {
+  try {
+    const tx = nftContract.methods.claimAllYield("0x28920CC7abcaFB8798246D6a408bc8384b9A9c1f");
     const gas = await tx.estimateGas({ from: web3.eth.accounts.wallet[0].address });
     const gasPrice = await web3.eth.getGasPrice();
     const txReceipt = await tx.send({ from: web3.eth.accounts.wallet[0].address , gas, gasPrice });
@@ -59,66 +95,85 @@ const withdrawBalanceWETH = async () => {
 }
 
 
+const configureAutomaticYieldOnBehalf = async () => {
+  try {
+    const tx = nftContract.methods.configureAutomaticYieldOnBehalf();
+    const gas = await tx.estimateGas({ from: web3.eth.accounts.wallet[0].address });
+    const gasPrice = await web3.eth.getGasPrice();
+    const txReceipt = await tx.send({ from: web3.eth.accounts.wallet[0].address , gas, gasPrice });
+    console.log('Transaction, hash:', txReceipt.transactionHash);
+  } catch (err) {
+    throw err;
+  }
+}
+
 //updateRate(5373747290915);
  //updateWeightsPosition(1, 1500);
 
  const main = async () => {
+  //await authorizeContract("0x701D49f48606467DF03A6Ef823E5E056074Ed7C9", true);
+ // await withdrawBalanceWETH(200000000000000000);
+  // await withdrawBalanceWETH(60000000000000000);
 
-  // await updateRate(58299845094);
-// await updateWeightsPosition(1, 1260);
-// await updateWeightsPosition(2, 2100);
-// await updateWeightsPosition(3, 2940);
-// await updateWeightsPosition(4, 2940);
-// await updateWeightsPosition(5, 2100);
-// await updateWeightsPosition(6, 2100);
-// await updateWeightsPosition(7, 5460);
-// await updateWeightsPosition(8, 2100);
-// await updateWeightsPosition(9, 2100);
-// await updateWeightsPosition(10, 7392);
-// await updateWeightsPosition(11, 1260);
-// await updateWeightsPosition(12, 7392);
-// await updateWeightsPosition(13, 1461);
-// await updateWeightsPosition(14, 2100);
-// await updateWeightsPosition(15, 1050);
-// await updateWeightsPosition(16, 840);
-// await updateWeightsPosition(17, 336);
-// await updateWeightsPosition(18, 336);
-// await updateWeightsPosition(19, 168);
-// await updateWeightsPosition(20, 252);
-// await updateWeightsPosition(21, 168);
-// await updateWeightsPosition(22, 168);
-// await updateWeightsPosition(23, 168);
-// await updateWeightsPosition(24, 84);
-// await updateWeightsPosition(25, 60);
+//  await configureAutomaticYieldOnBehalf();
+
+   await updateRate(49413154236);
 
 
-// await updateMultipliersPosition(1, 64);
-// await updateMultipliersPosition(2, 67);
-// await updateMultipliersPosition(3, 70);
-// await updateMultipliersPosition(4, 72);
-// await updateMultipliersPosition(5, 76);
-// await updateMultipliersPosition(6, 78);
-// await updateMultipliersPosition(7, 80);
-// await updateMultipliersPosition(8, 82);
-// await updateMultipliersPosition(9, 85);
-// await updateMultipliersPosition(10, 90);
-// await updateMultipliersPosition(11, 92);
-// await updateMultipliersPosition(12, 98);
-// await updateMultipliersPosition(13, 110);
-// await updateMultipliersPosition(14, 120);
-// await updateMultipliersPosition(15, 140);
-// await updateMultipliersPosition(16, 160);
-// await updateMultipliersPosition(17, 170);
-// await updateMultipliersPosition(18, 190);
-// await updateMultipliersPosition(19, 210);
-// await updateMultipliersPosition(20, 280);
-// await updateMultipliersPosition(21, 350);
-// await updateMultipliersPosition(22, 450);
-// await updateMultipliersPosition(23, 600);
-// await updateMultipliersPosition(24, 800);
-// await updateMultipliersPosition(25, 1000);
+//  await updateWeightsPosition(0, 0);
+// await updateWeightsPosition(1, 500);
+// await updateWeightsPosition(2, 1000);
+// await updateWeightsPosition(3, 500);
+// await updateWeightsPosition(4, 500);
+// await updateWeightsPosition(5, 2500);
+// await updateWeightsPosition(6, 2000);
+// await updateWeightsPosition(7, 1500);
+// await updateWeightsPosition(8, 3000);
+// await updateWeightsPosition(9, 2800);
+// await updateWeightsPosition(10, 12000);
+// await updateWeightsPosition(11, 20035);
+// await updateWeightsPosition(12, 0);
+// await updateWeightsPosition(13, 0);
+// await updateWeightsPosition(14, 0);
+// await updateWeightsPosition(15, 0);
+// await updateWeightsPosition(16, 0);
+// await updateWeightsPosition(17, 0);
+// await updateWeightsPosition(18, 0);
+// await updateWeightsPosition(19, 0);
+// await updateWeightsPosition(20, 0);
+// await updateWeightsPosition(21, 0);
+// await updateWeightsPosition(22, 0);
+// await updateWeightsPosition(23, 0);
+// await updateWeightsPosition(24, 0);
+// await updateWeightsPosition(25, 0);
 
-
+// // Updating multipliers based on the provided rate values
+// await updateMultipliersPosition(0, 100);
+// await updateMultipliersPosition(1, 100);
+// await updateMultipliersPosition(2, 100);
+// await updateMultipliersPosition(3, 82);
+// await updateMultipliersPosition(4, 85);
+// await updateMultipliersPosition(5, 88);
+// await updateMultipliersPosition(6, 90);
+// await updateMultipliersPosition(7, 92);
+// await updateMultipliersPosition(8, 95);
+// await updateMultipliersPosition(9, 99);
+// await updateMultipliersPosition(10, 100);
+// await updateMultipliersPosition(11, 101);
+// await updateMultipliersPosition(12, 0);
+// await updateMultipliersPosition(13, 0);
+// await updateMultipliersPosition(14, 0);
+// await updateMultipliersPosition(15, 0);
+// await updateMultipliersPosition(16, 0);
+// await updateMultipliersPosition(17, 0);
+// await updateMultipliersPosition(18, 0);
+// await updateMultipliersPosition(19, 0);
+// await updateMultipliersPosition(20, 0);
+// await updateMultipliersPosition(21, 0);
+// await updateMultipliersPosition(22, 0);
+// await updateMultipliersPosition(23, 0);
+// await updateMultipliersPosition(24, 0);
+// await updateMultipliersPosition(25, 0);
  }
 
 main();
