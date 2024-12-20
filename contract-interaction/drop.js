@@ -112,12 +112,12 @@ const configureAutomaticYieldOnBehalf = async () => {
 
  const main = async () => {
   //await authorizeContract("0x701D49f48606467DF03A6Ef823E5E056074Ed7C9", true);
- // await withdrawBalanceWETH(200000000000000000);
+ await withdrawBalanceWETH(72691740000000000);
   // await withdrawBalanceWETH(60000000000000000);
 
 //  await configureAutomaticYieldOnBehalf();
 
-   await updateRate(49413154236);
+  // await updateRate(49413154236);
 
 
 //  await updateWeightsPosition(0, 0);
