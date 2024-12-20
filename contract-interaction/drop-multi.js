@@ -1,7 +1,7 @@
 const Web3 = require('web3').Web3;
 const fs = require('fs/promises');
 const web3 = new Web3('https://rpc.blast.io');
-const contractABI = require('./WOB-NFT-MULTI-ABI.json');
+const contractABI = require('./WOB-DROP-MULTI-ABI.json');
 
 const privateKey = '0x' + '';
 const account = web3.eth.accounts.privateKeyToAccount(privateKey);
@@ -88,7 +88,6 @@ const updateTokenRate = async (index, rate) => {
   }
 }
 
-
 const tokenData1 = {
   name: "ETH",
   addr: "0x4300000000000000000000000000000000000004", // Replace with the token's address
@@ -110,7 +109,7 @@ const tokenData = {
  const main = async () => {
   // await addNewToken(tokenData.name, tokenData.addr, tokenData.totalWeight, tokenData.rate, tokenData.weights, tokenData.multipliers)
   //
-  await updateTokenRate(0, 48888530214 );
+  await updateTokenRate(0, 50363906191 );
  //await withdrawBalance("0xAaDFcb4d7AE00617E8C93Df88164247453Bb601a", 10000000000000000000000000)
 
   // await withdrawBalance("0x4300000000000000000000000000000000000004", 60000000000000000)

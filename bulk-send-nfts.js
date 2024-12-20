@@ -1,15 +1,14 @@
 const Web3 = require('web3').Web3;
 const fs = require('fs/promises');
 const web3 = new Web3('https://rpc.blast.io');
-const contractABI = require('./contractABI.json');
+const contractABI = require('./contract-interaction/WOB-NFT-ABI.json');
 
-const privateKey = '';
+const privateKey = '0x'+'';
 const account = web3.eth.accounts.privateKeyToAccount(privateKey);
 web3.eth.accounts.wallet.add(account);
 
 
-
-const contractAddress = '0xFB7acDaE5B59e9C3337203830aEC1563316679E6';
+const contractAddress = '0xc0E32BB6df4e581AEe1FAd639AD9695CFc8745Cb';
 const nftContract = new web3.eth.Contract(contractABI, contractAddress);
 
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
@@ -39,20 +38,56 @@ async function getNFTs(address) {
   }
 }
 
-
+async function approveToken(contractAddress, tokenId) {
+  try {
+    const tx = await nftContract.methods.approve(contractAddress, tokenId);
+    const gas = await tx.estimateGas({ from: account.address });
+    const gasPrice = await web3.eth.getGasPrice();
+    const receipt = await tx.send({ from: account.address, gas, gasPrice });
+    console.log(`Token ID ${tokenId} approved for contract ${contractAddress}. Tx Hash: ${receipt.transactionHash}`);
+  } catch (error) {
+    console.error(`Error approving token ID ${tokenId}:`, error);
+  }
+}
 
 async function transferNFT(toAddress, tokenId) {
   console.log({ toAddress, tokenId })
   try {
-    const tx = nftContract.methods.safeTransferFrom(account.address, toAddress, tokenId);
-    const gas = await tx.estimateGas({ from: account.address });
+
+    //await approveToken(contractAddress, tokenId);
+
+    const tx = nftContract.methods.transferFrom(web3.eth.accounts.wallet[0].address , toAddress, tokenId);
+    console.log('tx: ', tx);
+
+    // const isApproved = await nftContract.methods.getApproved(tokenId).call();
+    // if (isApproved.toLowerCase() === contractAddress.toLowerCase()) {
+    //   console.log(`Contract ${contractAddress} is approved to transfer token ID ${tokenId}`);
+    // } else {
+    //   console.error(`Contract ${contractAddress} is NOT approved to transfer token ID ${tokenId}`);
+    // }
+
+    const gas = await tx.estimateGas({ from: web3.eth.accounts.wallet[0].address });
+    console.log('gas: ', gas);
+        
     const gasPrice = await web3.eth.getGasPrice();
-    const txReceipt = await tx.send({ from: account.address, gas, gasPrice });
+    console.log('gasPrice: ', gasPrice);
+
+    const txReceipt = await tx.send({ from: web3.eth.accounts.wallet[0].address , gas, gasPrice });
+    console.log('txReceipt: ', txReceipt);
+
     console.log('Transação enviada, hash:', txReceipt.transactionHash);
-    console.log('Transação confirmada!');
   } catch (error) {
-    console.error('Erro ao transferir NFT:', error);
-    throw err;
+    console.error('Error with transfering NFTs:', error);
+    if (error.data) {
+      try {
+        const revertReason = web3.eth.abi.decodeParameter('string', error.data.substring(10));
+        console.error('Revert Reason:', revertReason);
+      } catch (decodeError) {
+        console.error('Failed to decode revert reason:', decodeError);
+      }
+    }
+
+    throw error
   }
 }
 
@@ -139,15 +174,14 @@ const checkDuplicates = async () => {
 
 const sendNFT = async () => {
   console.log("START");
-  const data = await readFile('addresses_with_tokens.json');
+  const data = await readFile('bulk-send-nfts-data.json');
   const addressesData = JSON.parse(data);
-  console.log(addressesData)
+  //console.log(addressesData)
   for (const item of addressesData) {
     if (item.status === 'pending') {
-      console.log({ address: item.address });
       await transferNFT(item.address, item.tokenId);
       item.status = 'done';
-      await writeFile('addresses_with_tokens.json', addressesData);
+      await writeFile('bulk-send-nfts-data.json', addressesData);
       await delay(1000);
     }
   }
@@ -156,3 +190,8 @@ const sendNFT = async () => {
 }
 
 sendNFT();
+// Get all contract NFTs of a wallet.
+// const ownerAddress = '0x21d9f2609f5De61fD352E2Aa4bBd202D08E694dF'; // Replace with a valid address
+// nftContract.methods.tokensOfOwner(ownerAddress).call()
+//   .then(console.log)
+//   .catch(console.error);
