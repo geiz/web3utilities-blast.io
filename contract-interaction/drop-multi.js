@@ -158,11 +158,62 @@ const nftData = {
 
 
 
+const updateTokenMultiplierPosition = async (index, position, value) => {
+  try {
+    const tx = dropContract.methods.updateTokenMultiplierPosition(index, position, value);
+    const gas = await tx.estimateGas({ from: web3.eth.accounts.wallet[0].address });
+    const gasPrice = await web3.eth.getGasPrice();
+    const txReceipt = await tx.send({ from: web3.eth.accounts.wallet[0].address, gas, gasPrice });
+    console.log('Transaction, hash:', txReceipt.transactionHash);
+  } catch (err) {
+    throw err;
+  }
+}
+
+const updateTokenWeightsPosition = async (index, position, value) => {
+  try {
+    const tx = dropContract.methods.updateTokenWeightsPosition(index, position, value);
+    const gas = await tx.estimateGas({ from: web3.eth.accounts.wallet[0].address });
+    const gasPrice = await web3.eth.getGasPrice();
+    const txReceipt = await tx.send({ from: web3.eth.accounts.wallet[0].address, gas, gasPrice });
+    console.log('Transaction, hash:', txReceipt.transactionHash);
+  } catch (err) {
+    throw err;
+  }
+}
 const main = async () => {
   // await addNewToken(tokenData.name, tokenData.addr, tokenData.totalWeight, tokenData.rate, tokenData.weights, tokenData.multipliers)
   //
-  //await updateTokenRate(0, 50363906191);
-  await createNewNFT(nftData.name, nftData.addr, nftData.prob, nftData.ids);
+  await updateTokenRate(0, 50363906191);
+
+  // 0 token index is eth, 1 is iron.
+  // await updateTokenMultiplierPosition(0, 0, 75);
+  // await updateTokenMultiplierPosition(0, 1, 80);
+  // await updateTokenMultiplierPosition(0, 2, 85);
+  // await updateTokenMultiplierPosition(0, 3, 90);
+  // await updateTokenMultiplierPosition(0, 4, 105);
+  // await updateTokenMultiplierPosition(0, 5, 135);
+  // await updateTokenMultiplierPosition(0, 6, 145);
+  // await updateTokenMultiplierPosition(0, 7, 150);
+  // await updateTokenMultiplierPosition(0, 8, 175);
+  // await updateTokenMultiplierPosition(0, 9, 225);
+  // await updateTokenMultiplierPosition(0, 10, 250);
+  // await updateTokenMultiplierPosition(0, 11, 500);
+
+  // await updateTokenWeightsPosition(0, 0, 1000);
+  // await updateTokenWeightsPosition(0, 1, 10500);
+  // await updateTokenWeightsPosition(0, 2, 9500);
+  // await updateTokenWeightsPosition(0, 3, 7245);
+  // await updateTokenWeightsPosition(0, 4, 8400);
+  // await updateTokenWeightsPosition(0, 5, 8650);
+  // await updateTokenWeightsPosition(0, 6, 300);
+  // await updateTokenWeightsPosition(0, 7, 200);
+  // await updateTokenWeightsPosition(0, 8, 180);
+  // await updateTokenWeightsPosition(0, 9, 200);
+  // await updateTokenWeightsPosition(0, 10, 140);
+  // await updateTokenWeightsPosition(0, 11, 20);
+
+  //await createNewNFT(nftData.name, nftData.addr, nftData.prob, nftData.ids);
   //await setNftDamageThreshold(92000);
   //await withdrawBalance("0xAaDFcb4d7AE00617E8C93Df88164247453Bb601a", 10000000000000000000000000)
 
