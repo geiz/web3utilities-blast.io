@@ -183,8 +183,8 @@ const updateTokenWeightsPosition = async (index, position, value) => {
 }
 const main = async () => {
   // await addNewToken(tokenData.name, tokenData.addr, tokenData.totalWeight, tokenData.rate, tokenData.weights, tokenData.multipliers)
-  //
-  await updateTokenRate(0, 50363906191);
+
+  await updateTokenRate(0, 50206518984);
 
   // 0 token index is eth, 1 is iron.
   // await updateTokenMultiplierPosition(0, 0, 75);
