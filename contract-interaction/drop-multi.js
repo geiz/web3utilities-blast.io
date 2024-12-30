@@ -119,6 +119,30 @@ const setNftDamageThreshold = async (damageThreshold) => {
   }
 }
 
+const updateNFTProb = async (index, prob) => {
+  try {
+    const tx = dropContract.methods.updateNFTProb(index, prob);
+    const gas = await tx.estimateGas({ from: web3.eth.accounts.wallet[0].address });
+    const gasPrice = await web3.eth.getGasPrice();
+    const txReceipt = await tx.send({ from: web3.eth.accounts.wallet[0].address, gas, gasPrice });
+    console.log('Transaction, hash:', txReceipt.transactionHash);
+  } catch (err) {
+    throw err;
+  }
+}
+
+const updateNFTIdPosition = async (nftObjectIndex, idIndex, idNFT) => {
+  try {
+    const tx = dropContract.methods.updateNFTIdPosition(nftObjectIndex, idIndex, idNFT);
+    const gas = await tx.estimateGas({ from: web3.eth.accounts.wallet[0].address });
+    const gasPrice = await web3.eth.getGasPrice();
+    const txReceipt = await tx.send({ from: web3.eth.accounts.wallet[0].address, gas, gasPrice });
+    console.log('Transaction, hash:', txReceipt.transactionHash);
+  } catch (err) {
+    throw err;
+  }
+}
+
 
 /**
  * Creates a new NFT by interacting with the addNewNFT function in the contract.
@@ -152,11 +176,8 @@ async function createNewNFT(name, address, prob, ids) {
 const nftData = {
   name: "WOB Weapon NFT",
   addr: "0xc0E32BB6df4e581AEe1FAd639AD9695CFc8745Cb", // Replace with the token's address
-  prob: 2000000000000000000, // 2%
-  ids: [4098, 4099, 4121, 4124, 4125, 4126, 4129, 4450, 4451, 4452, 4453, 4454, 4455, 4456, 4457, 4458, 4459, 4462, 4464, 4465, 4466, 4467, 4468, 4469, 4470, 4471, 4472, 4473, 4474, 4475],
-};
-
-
+  prob: 20000000000000000, // 2%
+  ids: [4560, 4558, 4525, 4526, 4527, 4522, 4519, 4524, 4520, 4521, 4517, 4518, 4516, 4514, 4515, 4512, 4523, 4511, 4513, 4510, 4508, 4509, 4507, 4506, 4503, 4505, 4501, 4498, 4504, 4489]};
 
 const updateTokenMultiplierPosition = async (index, position, value) => {
   try {
@@ -184,7 +205,14 @@ const updateTokenWeightsPosition = async (index, position, value) => {
 const main = async () => {
   // await addNewToken(tokenData.name, tokenData.addr, tokenData.totalWeight, tokenData.rate, tokenData.weights, tokenData.multipliers)
 
-  await updateTokenRate(0, 50206518984);
+  //await updateTokenRate(0, 50206518984);
+ 
+  // await setNftDamageThreshold(98000);
+  // await updateNFTProb(0, nftData.prob);
+
+  for (i = 0; i < nftData.ids.length; i++){
+    await updateNFTIdPosition(0, i, nftData.ids[i]);
+  }
 
   // 0 token index is eth, 1 is iron.
   // await updateTokenMultiplierPosition(0, 0, 75);
@@ -214,7 +242,6 @@ const main = async () => {
   // await updateTokenWeightsPosition(0, 11, 20);
 
   //await createNewNFT(nftData.name, nftData.addr, nftData.prob, nftData.ids);
-  //await setNftDamageThreshold(92000);
   //await withdrawBalance("0xAaDFcb4d7AE00617E8C93Df88164247453Bb601a", 10000000000000000000000000)
 
   // await withdrawBalance("0x4300000000000000000000000000000000000004", 60000000000000000)
@@ -226,8 +253,6 @@ const main = async () => {
   //  await configureAutomaticYieldOnBehalf();
 
   // await updateRate(49413154236);
-
-
 }
 
 main();
