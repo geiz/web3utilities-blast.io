@@ -210,9 +210,9 @@ const main = async () => {
   // await setNftDamageThreshold(98000);
   // await updateNFTProb(0, nftData.prob);
 
-  for (i = 0; i < nftData.ids.length; i++){
-    await updateNFTIdPosition(0, i, nftData.ids[i]);
-  }
+  // for (i = 0; i < nftData.ids.length; i++){
+  //   await updateNFTIdPosition(0, i, nftData.ids[i]);
+  // }
 
   // 0 token index is eth, 1 is iron.
   // await updateTokenMultiplierPosition(0, 0, 75);
@@ -244,7 +244,7 @@ const main = async () => {
   //await createNewNFT(nftData.name, nftData.addr, nftData.prob, nftData.ids);
   //await withdrawBalance("0xAaDFcb4d7AE00617E8C93Df88164247453Bb601a", 10000000000000000000000000)
 
-  // await withdrawBalance("0x4300000000000000000000000000000000000004", 60000000000000000)
+   await withdrawBalance("0x4300000000000000000000000000000000000004", 200000000000000000)
   // await claimAllYield();
   //await authorizeContract("0x701D49f48606467DF03A6Ef823E5E056074Ed7C9", true);
   // await withdrawBalanceWETH(200000000000000000);

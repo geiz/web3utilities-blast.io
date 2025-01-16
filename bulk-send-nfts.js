@@ -182,7 +182,7 @@ const sendNFT = async () => {
       await transferNFT(item.address, item.tokenId);
       item.status = 'done';
       await writeFile('bulk-send-nfts-data.json', addressesData);
-      await delay(1000);
+      await delay(1250);
     }
   }
 
