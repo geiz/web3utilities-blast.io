@@ -24,9 +24,9 @@ async function getNFTs(address) {
         console.log(`Token ID: ${tokenId}`);
         try {
           const itemDetails = await nftContract.methods.getItemDetails(tokenId).call();
-          console.log(`Detalhes do Item para Token ID ${tokenId}:`, itemDetails);
+          console.log(`Item details, Token ID ${tokenId}:`, itemDetails);
         } catch (error) {
-          console.error(`Erro ao obter detalhes para Token ID ${tokenId}:`, error);
+          console.error(`Error with Token ID ${tokenId}:`, error);
         }
       }
 
@@ -75,7 +75,7 @@ async function transferNFT(toAddress, tokenId) {
     const txReceipt = await tx.send({ from: web3.eth.accounts.wallet[0].address , gas, gasPrice });
     console.log('txReceipt: ', txReceipt);
 
-    console.log('Transação enviada, hash:', txReceipt.transactionHash);
+    console.log('Transaction Hash hash:', txReceipt.transactionHash);
   } catch (error) {
     console.error('Error with transfering NFTs:', error);
     if (error.data) {
@@ -98,7 +98,7 @@ const readFile = async (filePath, encoding = 'utf8') => {
     const data = await fs.readFile(filePath, encoding);
     return data;
   } catch (err) {
-    console.error('Erro ao ler o arquivo:', err);
+    console.error('Error reading the file:', err);
     throw err;
   }
 };
@@ -107,7 +107,7 @@ const writeFile = async (filePath, data) => {
   try {
     await fs.writeFile(filePath, JSON.stringify(data, null, 2), 'utf8');
   } catch (err) {
-    console.error('Erro ao salvar o arquivo:', err);
+    console.error('Error writing the file:', err);
     throw err;
   }
 };
@@ -162,13 +162,13 @@ const checkDuplicates = async () => {
     });
 
     if (duplicates.length > 0) {
-      console.log('Endereços duplicados encontrados:', duplicates);
+      console.log('Duplicates:', duplicates);
     } else {
-      console.log('Nenhum endereço duplicado encontrado.');
+      console.log('No Duplicates.');
     }
 
   } catch (error) {
-    console.error('Erro ao processar o arquivo JSON:', error);
+    console.error('Error in JSON:', error);
   }
 };
 

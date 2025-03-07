@@ -22,7 +22,7 @@ async function signAndRecoverMessage(message) {
 }
 
 // Example usage
-signAndRecoverMessage("Authorize Blast Points Transfer: 66119ee14ea3825c54a73c3c5b10efb8be273d71658198c2df7ee17deb057e1d").then(result => {
+signAndRecoverMessage("Authorize Blast Points Transfer: ").then(result => {
   if (result) {
     console.log("Signature:", result.signature);
     console.log("Address:", result.signingAddress);
@@ -46,19 +46,19 @@ curl --request POST \
   --url https://waitlist-api.prod.blast.io/v1/dapp-auth/solve \
   --header 'Content-Type: application/json' \
   --data '{
-"challengeData":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb250cmFjdEFkZHJlc3MiOiIweGU0OThhMzk2N2NkNzMxNTM4OTAwOTVhNmJlM2Y2ODUzNDIxMzQyYjYiLCJvcGVyYXRvckFkZHJlc3MiOiIweDQyMjVkOTZjMWQ1OWQ5MzVjMmIwMDQ4MjNjMTg0YzRkOWNhZjE1OWUiLCJleHBpcmVzQXQiOiIyMDI1LTAxLTA2VDIzOjU1OjUyLjAxOVoiLCJub25jZSI6IjY2MTE5ZWUxNGVhMzgyNWM1NGE3M2MzYzViMTBlZmI4YmUyNzNkNzE2NTgxOThjMmRmN2VlMTdkZWIwNTdlMWQiLCJpYXQiOjE3MzYyMDc2OTIsImV4cCI6MTczNjIwNzc1Mn0.bmqW9UNhwV1vJRoQpQzx48l6ioj-TRgu4lEnwM4katc",
-  "signature": "0x47f0e1bd6b609e2b1da8eb1a8201416b67e839824bad3ea8b2b87d69cede23e564c1dbfb08d70f218aa7f43b67649135b3541f51b9f501d30518e3f58f0740421b"}'
+"challengeData":"",
+  "signature": ""}'
 
 curl --request GET \
   --url https://waitlist-api.prod.blast.io/v1/contracts/0xe498a3967Cd73153890095A6Be3F6853421342B6/point-balances \
-  --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoSWQiOiIyZDI1NjE4Yy00Mzg2LTRkOTgtYjZjYS04MmUzMDU0ODY2MDAiLCJjb250cmFjdEFkZHJlc3MiOiIweGU0OThhMzk2N2NkNzMxNTM4OTAwOTVhNmJlM2Y2ODUzNDIxMzQyYjYiLCJvcGVyYXRvckFkZHJlc3MiOiIweDQyMjVkOTZjMWQ1OWQ5MzVjMmIwMDQ4MjNjMTg0YzRkOWNhZjE1OWUiLCJpYXQiOjE3MzYyMDc3MzYsImV4cCI6MTczNjIxMTMzNn0.sbHKrAC9CYDc03Q-X9Xd98noZqOMIaA04LuNepFN3Ss'
+  --header 'Authorization: Bearer '
 
 
 — Send Points — 
 
 curl --request POST \
   --url https://waitlist-api.prod.blast.io/v1/contracts/0xe498a3967Cd73153890095A6Be3F6853421342B6/batches \
-  --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.w7yML4grPHkfdbku1FRfjP7OtnKrDeFjpqYJEXVtyEI' \
+  --header 'Authorization: Bearer ' \
   --header 'Content-Type: application/json' \
   --data '{
     "pointType": "PHASE2_POINTS",
@@ -76,7 +76,7 @@ curl --request POST \
 
 curl --request POST \
   --url https://waitlist-api.prod.blast.io/v1/contracts/0xe498a3967Cd73153890095A6Be3F6853421342B6/batches \
-  --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoSWQiOiIyZDI1NjE4Yy00Mzg2LTRkOTgtYjZjYS04MmUzMDU0ODY2MDAiLCJjb250cmFjdEFkZHJlc3MiOiIweGU0OThhMzk2N2NkNzMxNTM4OTAwOTVhNmJlM2Y2ODUzNDIxMzQyYjYiLCJvcGVyYXRvckFkZHJlc3MiOiIweDQyMjVkOTZjMWQ1OWQ5MzVjMmIwMDQ4MjNjMTg0YzRkOWNhZjE1OWUiLCJpYXQiOjE3MzYyMDc3MzYsImV4cCI6MTczNjIxMTMzNn0.sbHKrAC9CYDc03Q-X9Xd98noZqOMIaA04LuNepFN3Ss' \
+  --header 'Authorization: Bearer ' \
   --header 'Content-Type: application/json' \
   --data '{
     "pointType": "PHASE2_GOLD",
@@ -107,7 +107,7 @@ curl --request POST \
 
 curl --request GET \
   --url https://waitlist-api.prod.blast.io/v1/contracts/0xe498a3967Cd73153890095A6Be3F6853421342B6/batches \
-  --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.x4RlPARIqAnqhddHa1KX37PvSVJxFc-il0tACq-z6nA'
+  --header 'Authorization: Bearer '
 
 
 
@@ -115,7 +115,7 @@ curl --request GET \
 
 curl --request POST \
   --url https://waitlist-api.prod.blast.io/v1/operators/0x4225d96C1d59D935c2b004823C184C4D9caF159e/dapp-info \
-  --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.4Uf4P_LOKjF_rQ_P2uTUqxn8Q1uObtRa3X8HEx_s72g' \
+  --header 'Authorization: Bearer ' \
   --header 'Content-Type: application/json' \
   --data '{
   "name": "World of Blast",
@@ -130,7 +130,7 @@ curl --request POST \
 
 curl --request POST \
   --url https://waitlist-api.prod.blast.io/v1/contracts/0x4225d96C1d59D935c2b004823C184C4D9caF159e/batches \
-  --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.MZIMj7SWnCScqrh55bic9WhEG69vwXZ3J6lw-i3j-zQ' \
+  --header 'Authorization: Bearer ' \
   --header 'Content-Type: application/json' \
   --data '{
     "pointType": "LIQUIDITY",
@@ -146,7 +146,7 @@ curl --request POST \
 
 —
 
-  --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9._ju2c-ZuySaMjI9bhunNHuDNcVLiUXfxaE-kpjTmaR0'
+  --header 'Authorization: Bearer '
 {"success":true,"balancesByPointType":{"DEVELOPER":{"available":"0","pendingSent":"0","earnedCumulative":"0","receivedCumulative":"0","finalizedSentCumulative":"0"},"LIQUIDITY":{"available":"213720.811266408549","pendingSent":"0","earnedCumulative":"213653.229700734883","receivedCumulative":"77.581565673666","finalizedSentCumulative":"10","byAsset":{"ETH":{"earnedCumulative":"0","earnedCumulativeBlock":5263294},"WETH":{"earnedCumulative":"213653.229700734883","earnedCumulativeBlock":5263293},"USDB":{"earnedCumulative":"0","earnedCumulativeBlock":5263293}}}}}%         
 
 */
